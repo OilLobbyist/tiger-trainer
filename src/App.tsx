@@ -6,7 +6,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Rabbit, Bird, Fish, Play, X, Lock, Wind, Leaf, Waves, Shield, Zap, Volume2, Monitor, MousePointer2, Maximize, Minimize, Settings, VolumeX, Volume1, Activity } from 'lucide-react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import GameCanvas from './components/GameCanvas';
 import { EntityType } from './types';
 import { soundService } from './services/soundService';
@@ -175,7 +174,7 @@ export default function App() {
 
   return (
     <div 
-      className="relative w-full h-screen overflow-hidden oled-safe-bg font-sans text-white flex flex-col"
+      className="relative w-full h-screen overflow-y-auto oled-safe-bg font-sans text-white flex flex-col"
       onContextMenu={(e) => e.preventDefault()}
     >
       <AnimatePresence mode="wait">
@@ -185,31 +184,31 @@ export default function App() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="flex flex-col items-center justify-center w-full min-h-full p-12 md:p-24 pt-32 md:pt-40 pb-24 md:pb-32"
+            className="flex flex-col items-center justify-start w-full min-h-full p-6 md:p-12 pt-16 md:pt-24 pb-24 md:pb-32"
           >
-            <div className="text-center mb-8">
+            <div className="text-center mb-6">
               <motion.h1 
-                className="text-7xl md:text-9xl font-black tracking-tighter mb-2 uppercase italic text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-500 to-orange-600"
+                className="text-5xl md:text-8xl font-black tracking-tighter mb-1 uppercase italic text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-amber-500 to-orange-600"
                 initial={{ x: -100 }}
                 animate={{ x: 0 }}
               >
                 Tiger Trainer
               </motion.h1>
-              <p className="text-orange-200/60 text-xl font-medium uppercase tracking-widest mb-8">
+              <p className="text-orange-200/60 text-sm md:text-lg font-medium uppercase tracking-widest mb-4">
                 Awaken the Inner Beast
               </p>
-              <h2 className="text-white/80 text-lg font-bold uppercase tracking-widest animate-pulse">
+              <h2 className="text-white/80 text-xs md:text-sm font-bold uppercase tracking-widest animate-pulse">
                 Where shall your tiger prowl today?
               </h2>
             </div>
 
-            <div className="mb-12 p-4 border border-white/10 rounded-2xl bg-white/5 max-w-md text-center">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-orange-200/40 leading-relaxed">
+            <div className="mb-8 p-3 border border-white/10 rounded-xl bg-white/5 max-w-sm text-center">
+              <p className="text-[9px] font-bold uppercase tracking-widest text-orange-200/40 leading-relaxed">
                 🛡️ Use tempered glass: A pouncing cat's weight will crack unprotected screens.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 max-w-5xl w-full mb-12">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-5xl w-full mb-8">
               {MODES.map((m, idx) => (
                 <motion.button
                   key={m.id}
@@ -219,11 +218,11 @@ export default function App() {
                     setMode(m.id);
                     setFocusedIndex(idx);
                   }}
-                  className={`relative flex flex-col items-center justify-center p-8 rounded-3xl border-2 transition-all duration-300 ${
+                  className={`relative flex flex-col items-center justify-center p-4 md:p-6 rounded-2xl border-2 transition-all duration-300 ${
                     mode === m.id 
-                      ? 'border-white bg-white/20 shadow-[0_0_40px_rgba(255,255,255,0.2)]' 
+                      ? 'border-white bg-white/20 shadow-[0_0_30px_rgba(255,255,255,0.15)]' 
                       : 'border-white/5 bg-black/20 hover:bg-white/5'
-                  } ${focusedIndex === idx ? 'ring-4 ring-orange-500 ring-offset-4 ring-offset-black scale-105' : ''}`}
+                  } ${focusedIndex === idx ? 'ring-2 ring-orange-500 ring-offset-2 ring-offset-black scale-105' : ''}`}
                 >
                   {/* Background Animations Container */}
                   <div className="absolute inset-0 rounded-[22px] overflow-hidden pointer-events-none">
@@ -382,49 +381,49 @@ export default function App() {
                 soundService.playCatchEffect(mode); 
               }}
               onMouseEnter={() => setFocusedIndex(5)}
-              className={`group flex items-center gap-4 bg-white text-black px-12 py-6 rounded-full font-black text-2xl uppercase tracking-tighter shadow-xl shadow-orange-500/40 hover:bg-orange-50 transition-all ${
-                focusedIndex === 5 ? 'ring-4 ring-orange-500 ring-offset-4 ring-offset-black scale-110' : ''
+              className={`group flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-black text-xl uppercase tracking-tighter shadow-xl shadow-orange-500/40 hover:bg-orange-50 transition-all ${
+                focusedIndex === 5 ? 'ring-2 ring-orange-500 ring-offset-2 ring-offset-black scale-105' : ''
               }`}
             >
-              <Play className="fill-current" />
+              <Play className="fill-current w-5 h-5" />
               Begin Training
             </motion.button>
 
             {/* Features Blurb */}
-            <div className="mt-24 max-w-5xl w-full text-center mb-12">
-              <h2 className="text-sm font-black uppercase tracking-[0.4em] text-orange-500 mb-4">The Ultimate Feline Simulator</h2>
-              <p className="text-xs text-white/60 leading-relaxed uppercase tracking-widest max-w-2xl mx-auto">
+            <div className="mt-12 max-w-4xl w-full text-center mb-8">
+              <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-orange-500 mb-2">The Ultimate Feline Simulator</h2>
+              <p className="text-[9px] text-white/60 leading-relaxed uppercase tracking-widest max-w-xl mx-auto">
                 Tiger Trainer is a high-fidelity hunting simulator engineered to engage your cat's natural predatory drives through scientifically-tuned visual and auditory stimuli.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl w-full">
-              <div className="flex flex-col items-center text-center p-6 border border-white/5 rounded-3xl bg-white/[0.02]">
-                <div className="w-12 h-12 rounded-2xl bg-orange-500/10 flex items-center justify-center mb-4">
-                  <Monitor className="w-6 h-6 text-orange-400" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl w-full">
+              <div className="flex flex-col items-center text-center p-4 border border-white/5 rounded-2xl bg-white/[0.02]">
+                <div className="w-10 h-10 rounded-xl bg-orange-500/10 flex items-center justify-center mb-3">
+                  <Monitor className="w-5 h-5 text-orange-400" />
                 </div>
-                <h3 className="text-xs font-black uppercase tracking-widest mb-2 text-white/80">OLED Optimized</h3>
-                <p className="text-[10px] text-white/40 leading-relaxed uppercase tracking-wider">
+                <h3 className="text-[10px] font-black uppercase tracking-widest mb-1 text-white/80">OLED Optimized</h3>
+                <p className="text-[8px] text-white/40 leading-relaxed uppercase tracking-wider">
                   Pure black backgrounds prevent pixel burn-in while providing infinite contrast for your cat's nocturnal vision.
                 </p>
               </div>
 
-              <div className="flex flex-col items-center text-center p-6 border border-white/5 rounded-3xl bg-white/[0.02]">
-                <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 flex items-center justify-center mb-4">
-                  <Zap className="w-6 h-6 text-cyan-400" />
+              <div className="flex flex-col items-center text-center p-4 border border-white/5 rounded-2xl bg-white/[0.02]">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center mb-3">
+                  <Zap className="w-5 h-5 text-cyan-400" />
                 </div>
-                <h3 className="text-xs font-black uppercase tracking-widest mb-2 text-white/80">Cat-Visible Spectrum</h3>
-                <p className="text-[10px] text-white/40 leading-relaxed uppercase tracking-wider">
+                <h3 className="text-[10px] font-black uppercase tracking-widest mb-1 text-white/80">Cat-Visible Spectrum</h3>
+                <p className="text-[8px] text-white/40 leading-relaxed uppercase tracking-wider">
                   Colors are scientifically tuned to the dichromatic range of feline eyes, ensuring maximum target visibility.
                 </p>
               </div>
 
-              <div className="flex flex-col items-center text-center p-6 border border-white/5 rounded-3xl bg-white/[0.02]">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-4">
-                  <Volume2 className="w-6 h-6 text-emerald-400" />
+              <div className="flex flex-col items-center text-center p-4 border border-white/5 rounded-2xl bg-white/[0.02]">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-3">
+                  <Volume2 className="w-5 h-5 text-emerald-400" />
                 </div>
-                <h3 className="text-xs font-black uppercase tracking-widest mb-2 text-white/80">Thematic Audio</h3>
-                <p className="text-[10px] text-white/40 leading-relaxed uppercase tracking-wider">
+                <h3 className="text-[10px] font-black uppercase tracking-widest mb-1 text-white/80">Thematic Audio</h3>
+                <p className="text-[8px] text-white/40 leading-relaxed uppercase tracking-wider">
                   AI-synthesized chirps and chatter trigger deep-seated hunting instincts for a fully immersive session.
                 </p>
               </div>
@@ -494,7 +493,7 @@ export default function App() {
                 )}
               </AnimatePresence>
 
-              <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 hover:text-white/40 transition-colors">
+              <div className="mt-8 mb-12 text-[10px] font-bold uppercase tracking-[0.2em] text-white/20 hover:text-white/40 transition-colors">
                 Designed by <a href="https://www.linkedin.com/in/gerald-crawford/" target="_blank" rel="noopener noreferrer" className="underline decoration-orange-500/40 hover:decoration-orange-500 underline-offset-4">Gerald Crawford</a>
               </div>
             </motion.div>
@@ -520,7 +519,7 @@ export default function App() {
             <div className="absolute top-8 right-8 flex flex-col items-end gap-2">
               <button
                 onClick={toggleFullscreen}
-                className="p-4 bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-colors"
+                className="w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-white/10 transition-all"
                 title="Toggle Fullscreen"
               >
                 {isFullscreen ? <Minimize className="w-5 h-5 text-white/60" /> : <Maximize className="w-5 h-5 text-white/60" />}
@@ -535,37 +534,61 @@ export default function App() {
                   e.preventDefault();
                   handleTripleTap();
                 }}
-                className={`relative p-6 bg-black/50 backdrop-blur-md border border-white/10 rounded-full hover:bg-white/10 transition-all overflow-hidden ${tapCount > 0 ? 'scale-110 border-orange-500/50' : ''}`}
+                className={`relative w-14 h-14 flex items-center justify-center bg-white/5 backdrop-blur-md border border-white/10 rounded-full hover:bg-white/10 transition-all overflow-hidden group ${tapCount > 0 ? 'scale-110 border-orange-500/50' : ''}`}
+                title="Triple Tap to Exit"
               >
-                <div className="flex gap-1">
-                  {[...Array(3)].map((_, i) => (
-                    <motion.div 
-                      key={i}
-                      animate={{ 
-                        scale: i < tapCount ? 1.25 : 1,
-                        backgroundColor: i < tapCount ? '#f97316' : 'rgba(255,255,255,0.2)',
-                        boxShadow: i < tapCount ? '0 0 10px #f97316' : 'none'
-                      }}
-                      className="w-2 h-2 rounded-full transition-all duration-300"
-                    />
-                  ))}
-                </div>
+                <AnimatePresence mode="wait">
+                  {tapCount === 0 ? (
+                    <motion.div
+                      key="dots"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.2 }}
+                      className="flex gap-1"
+                    >
+                      {[...Array(3)].map((_, i) => (
+                        <div key={i} className="w-1 h-1 rounded-full bg-white/40" />
+                      ))}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="exit"
+                      initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.2 }}
+                      className="relative flex items-center justify-center"
+                    >
+                      <X className="w-5 h-5 text-orange-500" />
+                      {/* Progress dots around the X */}
+                      <div className="absolute -bottom-2 flex gap-0.5">
+                        {[...Array(3)].map((_, i) => (
+                          <motion.div 
+                            key={i}
+                            animate={{ 
+                              scale: i < tapCount ? 1.2 : 1,
+                              backgroundColor: i < tapCount ? '#f97316' : 'rgba(255,255,255,0.2)',
+                            }}
+                            className="w-1 h-1 rounded-full"
+                          />
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </button>
-              <span className="text-[8px] font-bold uppercase tracking-widest text-orange-200/20 mr-2">Triple Tap to End Session</span>
             </div>
 
             {/* Hint for humans - only if motion detected and not flat */}
             {hasMotion && !isFlat && (
               <div className="absolute bottom-8 left-1/2 -translate-x-1/2 pointer-events-none">
                 <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-orange-400/60 animate-pulse text-center">
-                  ✨ Training is best on a flat surface ✨
+                  📐 Training is best on a flat surface 📐
                 </p>
               </div>
             )}
           </motion.div>
         )}
       </AnimatePresence>
-      <SpeedInsights />
     </div>
   );
 }

@@ -8,7 +8,7 @@
 
 @layer base {
   body {
-    @apply bg-neutral-950 text-white antialiased overflow-hidden select-none touch-none;
+    @apply bg-neutral-950 text-white antialiased overflow-hidden select-none;
     -webkit-touch-callout: none; /* Disable long-press context menu on iOS */
   }
 }
