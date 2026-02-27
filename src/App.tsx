@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Rabbit, Bird, Fish, Play, X, Lock, Wind, Leaf, Waves, Shield, Zap, Volume2, Monitor, MousePointer2, Maximize, Minimize, Settings, VolumeX, Volume1, Activity } from 'lucide-react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import GameCanvas from './components/GameCanvas';
 import { EntityType } from './types';
 import { soundService } from './services/soundService';
@@ -564,6 +565,7 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      <SpeedInsights />
     </div>
   );
 }
